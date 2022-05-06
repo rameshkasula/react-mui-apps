@@ -1,5 +1,4 @@
-import { Suspense, lazy } from "react";
-import { Navigate, useRoutes, useLocation } from "react-router-dom";
+import { Navigate, useRoutes } from "react-router-dom";
 import { RequireAuth } from "../helpers/RequireAuth";
 import Layout from "../components/Layout";
 import Home from "../pages/Home";
@@ -32,14 +31,14 @@ export default function Router() {
         </RequireAuth>
       ),
       children: [
-        { element: <Navigate to="/app" replace /> },
+        { element: <Navigate to="/app" replace={true} /> },
         { path: "app", element: <Home /> },
         { path: "profile", element: <Profile /> },
       ],
     },
     {
       path: "/",
-      element: <Home />,
+      element: <Navigate to="/" />,
     },
     {
       path: "*",

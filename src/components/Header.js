@@ -35,7 +35,7 @@ export default function Header() {
             to={"/app"}
             sx={{ flexGrow: 1, textDecoration: "none" }}
           >
-            News
+            InstaChrome.
           </Typography>
           {pages.map((item) => (
             <Typography
