@@ -16,7 +16,7 @@ export default function Header() {
   const theme = useTheme();
   const colorMode = React.useContext(ColorModeContext);
   const pages = [
-    { name: "Home", path: "/" },
+    { name: "Home", path: "/app" },
     {
       name: "Profile",
       path: "/profile",
@@ -28,7 +28,13 @@ export default function Header() {
       <AppBar position="static">
         <Toolbar>
           <Sidebar />
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography
+            variant="h6"
+            color="inherit"
+            component={Link}
+            to={"/app"}
+            sx={{ flexGrow: 1, textDecoration: "none" }}
+          >
             News
           </Typography>
           {pages.map((item) => (
