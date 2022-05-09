@@ -4,7 +4,7 @@ import PostCard from "./PostCard";
 
 export default function Posts() {
   return (
-    <Container maxWidth="md">
+    <Container component="main" maxWidth="md">
       <Grid container spacing={2} sx={{ my: 2 }}>
         <Grid item xs={12} md={6}>
           <Grid container spacing={2} direction="coloumn">
@@ -17,7 +17,7 @@ export default function Posts() {
         </Grid>
 
         <Grid item xs={12} md={6}>
-          <Typography>{"hellp"}</Typography>
+          <Typography>{"hello"}</Typography>
         </Grid>
       </Grid>
     </Container>
