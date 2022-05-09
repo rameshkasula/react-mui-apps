@@ -221,8 +221,8 @@ export function getProducts() {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axios.get("https://fakestoreapi.com/products");
-      dispatch(slice.actions.getProductsSuccess(response.data));
+      const response = await axiosClient.get("/products/getall");
+      dispatch(slice.actions.getProductsSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }

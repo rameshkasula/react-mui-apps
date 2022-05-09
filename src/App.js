@@ -25,6 +25,9 @@ function App() {
       createTheme({
         palette: {
           mode,
+          primary: {
+            main: "#E50914",
+          },
         },
       }),
     [mode]
