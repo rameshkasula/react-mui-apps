@@ -31,7 +31,7 @@ export default function Router() {
         </RequireAuth>
       ),
       children: [
-        { element: <Navigate to="/app" replace={true} /> },
+        { path: "", element: <Navigate to="/app" replace={true} /> },
         { path: "app", element: <Home /> },
         { path: "profile", element: <Profile /> },
       ],

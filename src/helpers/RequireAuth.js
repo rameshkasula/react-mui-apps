@@ -5,7 +5,7 @@ import { useAuth } from "../contexts/auth";
 export const RequireAuth = ({ children }) => {
   const auth = useAuth();
   if (!auth?.user) {
-    return <Navigate to="/auth/signin" replace />;
+    return <Navigate to="/auth/signin" replace={true} />;
   }
   return children;
 };
