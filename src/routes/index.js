@@ -38,7 +38,7 @@ export default function Router() {
     },
     {
       path: "/",
-      element: <Navigate to="/" />,
+      element: <Navigate to="/app" replace={true} />,
     },
     {
       path: "*",
