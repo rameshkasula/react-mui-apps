@@ -11,7 +11,7 @@ function ProtectedRoutes(props) {
     if (!auth?.user) {
       navigate("/signin");
     }
-  }, []);
+  }, [auth?.user, navigate]);
 
   return (
     <Fragment>

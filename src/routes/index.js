@@ -1,13 +1,14 @@
-import { Suspense, lazy } from "react";
-import { Navigate, useRoutes, useLocation } from "react-router-dom";
+import { Navigate, useRoutes } from "react-router-dom";
 import { RequireAuth } from "../helpers/RequireAuth";
 import Layout from "../components/Layout";
-import Home from "../pages/Home";
 import Profile from "../pages/Profile";
 import NotFound from "../pages/Page404";
 import LogoOnlyLayout from "../helpers/LogoOnlyLayout";
 import Signin from "../pages/auth/Signin";
 import Signup from "../pages/auth/Signup";
+import MessagesTable from "../components/messages/MessagesTable";
+import ProjectTable from "src/components/projects/ProjectTable";
+import CreateProject from "src/components/projects/CreateProject";
 
 export default function Router() {
   return useRoutes([
@@ -32,14 +33,21 @@ export default function Router() {
         </RequireAuth>
       ),
       children: [
-        { element: <Navigate to="/app" replace /> },
-        { path: "app", element: <Home /> },
+        { element: <Navigate to="/app" replace={true} /> },
+        { path: "", element: <MessagesTable /> },
+        { path: "app", element: <MessagesTable /> },
         { path: "profile", element: <Profile /> },
+        { path: "requests", element: <MessagesTable /> },
+        {
+          path: "projects",
+          children: [
+            { element: <Navigate to="/projects" replace /> },
+            { path: "", element: <ProjectTable /> },
+            { path: "create", element: <CreateProject /> },
+            //  { path: ":tagId", element: <TagsCreate /> },
+          ],
+        },
       ],
-    },
-    {
-      path: "/",
-      element: <Home />,
     },
     {
       path: "*",

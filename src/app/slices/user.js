@@ -5,6 +5,7 @@ const initialState = {
   isLoading: false,
   error: false,
   posts: [],
+  requests: [],
   post: null,
   recentPosts: [],
   hasMore: true,
@@ -31,6 +32,11 @@ const slice = createSlice({
     getPostsSuccess(state, action) {
       state.isLoading = false;
       state.posts = action.payload;
+    },
+
+    getRequestsSuccess(state, action) {
+      state.isLoading = false;
+      state.requests = action.payload;
     },
 
     // GET POST INFINITE
@@ -76,6 +82,18 @@ export function getAllPosts() {
     try {
       const response = await axiosClient.get("/api/blog/posts/all");
       dispatch(slice.actions.getPostsSuccess(response.data.posts));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function getAllRequests() {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axiosClient.get("messages/getall");
+      dispatch(slice.actions.getRequestsSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
