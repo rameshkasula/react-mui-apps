@@ -9,6 +9,7 @@ import MSelectCountries from "./MSelectCountries";
 import MSelectCities from "./MSelectCities";
 import MRadioMaritalStatus from "./MRadioMaritalStatus";
 import MTypography from "./MTypography";
+import MImageUpload from "./MImageUpload";
 export {
   MTextField,
   MSelect,
@@ -21,4 +22,5 @@ export {
   MSelectCities,
   MRadioMaritalStatus,
   MTypography,
+  MImageUpload,
 };

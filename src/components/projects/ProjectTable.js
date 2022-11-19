@@ -5,20 +5,26 @@ import { Button, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllRequests } from "src/app/slices/user";
+import { deleteProjects, getAllProjects } from "src/app/slices/user";
 import { Link } from "react-router-dom";
 
 export default function ProjectTable() {
   const dispatch = useDispatch();
-  const { requests } = useSelector((state) => state.user);
+  const { projects } = useSelector((state) => state.user);
 
+  const checkFun = (res) => {
+    console.log(res);
+    if (res.status === 200) {
+      dispatch(getAllProjects());
+    }
+  };
   useEffect(() => {
-    dispatch(getAllRequests());
+    dispatch(getAllProjects());
   }, [dispatch]);
 
   const columns = [
-    { field: "fullName", headerName: "Full name", width: 200 },
-    { field: "email", headerName: "Email", width: 200 },
+    { field: "title", headerName: "Title", width: 200 },
+    { field: "category", headerName: "Category", width: 200 },
     {
       field: "createdAt",
       headerName: "Date",
@@ -38,7 +44,9 @@ export default function ProjectTable() {
           <IconButton>
             <EditIcon />
           </IconButton>
-          <IconButton>
+          <IconButton
+            onClick={() => dispatch(deleteProjects(params.row._id, checkFun))}
+          >
             <DeleteIcon />
           </IconButton>
         </span>
@@ -56,7 +64,7 @@ export default function ProjectTable() {
           </Button>
         }
       >
-        <MDataTable rows={requests} columns={columns} />
+        <MDataTable rows={projects} columns={columns} />
       </Page>
     </Fragment>
   );

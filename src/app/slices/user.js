@@ -6,6 +6,7 @@ const initialState = {
   error: false,
   posts: [],
   requests: [],
+  projects: [],
   post: null,
   recentPosts: [],
   hasMore: true,
@@ -32,6 +33,10 @@ const slice = createSlice({
     getPostsSuccess(state, action) {
       state.isLoading = false;
       state.posts = action.payload;
+    },
+    getProjectsSuccess(state, action) {
+      state.isLoading = false;
+      state.projects = action.payload;
     },
 
     getRequestsSuccess(state, action) {
@@ -94,6 +99,44 @@ export function getAllRequests() {
     try {
       const response = await axiosClient.get("messages/getall");
       dispatch(slice.actions.getRequestsSuccess(response.data.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function createProject(payload, checkFun) {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axiosClient.post("projects/create", payload);
+      checkFun(response);
+      // dispatch(slice.actions.getRequestsSuccess(response.data.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function getAllProjects() {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axiosClient.get("projects/getall");
+      dispatch(slice.actions.getProjectsSuccess(response.data.data));
+    } catch (error) {
+      dispatch(slice.actions.hasError(error));
+    }
+  };
+}
+
+export function deleteProjects(Id, checkFun) {
+  return async (dispatch) => {
+    dispatch(slice.actions.startLoading());
+    try {
+      const response = await axiosClient.delete(`projects/delete/${Id}`);
+      checkFun(response);
+      // dispatch(slice.actions.getProjectsSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
