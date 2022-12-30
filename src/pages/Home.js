@@ -1,17 +1,21 @@
-import { Container, Typography } from "@mui/material";
-import React, { Fragment, useEffect } from "react";
+import React, { Fragment } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Navigate } from "react-router-dom";
-import { getProducts } from "../app/slices/product";
+import { ActionTypes } from "../app/actions";
 import Posts from "../components/posts";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const { isLoading, products } = useSelector((state) => state.product);
+  const { posts } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(getProducts());
-  }, []);
+    dispatch({
+      type: ActionTypes.SET_POSTS,
+      posts: ["ramesh", "vashya"],
+    });
+  }, [dispatch]);
+
+  console.log("jjjjjjjj", posts);
 
   return (
     <Fragment>
