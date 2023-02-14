@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 export default function MDataTable({ rows, columns }) {
   return (
     <React.Fragment>
-      <Box sx={{ width: "100%" }}>
+      <Box sx={{ width: "100%", marginTop: 4 }}>
         <DataGrid
           rows={rows}
           columns={columns}
