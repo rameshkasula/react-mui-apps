@@ -7,7 +7,7 @@ const DEFAULT_HEADERS = {
 };
 const token = JSON.parse(localStorage.getItem("user"));
 
-const newToken = token;
+const newToken = token?.token;
 
 const headers = newToken
   ? { ...DEFAULT_HEADERS, Authorization: `Bearer ${newToken}` }

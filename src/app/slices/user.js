@@ -7,6 +7,7 @@ const initialState = {
   posts: [],
   requests: [],
   projects: [],
+  users: [],
   post: null,
   recentPosts: [],
   hasMore: true,
@@ -42,6 +43,11 @@ const slice = createSlice({
     getRequestsSuccess(state, action) {
       state.isLoading = false;
       state.requests = action.payload;
+    },
+
+    getUsersSuccess(state, action) {
+      state.isLoading = false;
+      state.users = action.payload;
     },
 
     // GET POST INFINITE
@@ -97,7 +103,7 @@ export function getAllRequests() {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axiosClient.get("messages/getall");
+      const response = await axiosClient.get("admin/getall");
       dispatch(slice.actions.getRequestsSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
@@ -143,59 +149,40 @@ export function deleteProjects(Id, checkFun) {
   };
 }
 
-// ----------------------------------------------------------------------
-
-export function getPostsInitial(index, step) {
+export function signupUser(payload, cbFun) {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axiosClient.get("/api/blog/posts", {
-        params: { index, step },
-      });
-      const results = response.data.results.length;
-      const { maxLength } = response.data;
-
-      dispatch(slice.actions.getPostsInitial(response.data.results));
-
-      if (results >= maxLength) {
-        dispatch(slice.actions.noHasMore());
-      }
+      const response = await axiosClient.post(`admin/register`, payload);
+      cbFun(response);
+      // dispatch(slice.actions.getProjectsSuccess(response.data.data));
     } catch (error) {
       dispatch(slice.actions.hasError(error));
     }
   };
 }
 
-// ----------------------------------------------------------------------
-
-export function getPost(title) {
+export function signinUser(payload, cbFun) {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axiosClient.get("/api/blog/post", {
-        params: { title },
-      });
-      dispatch(slice.actions.getPostSuccess(response.data.post));
+      const response = await axiosClient.post(`/admin/loginuser`, payload);
+      cbFun(response);
+      // dispatch(slice.actions.getProjectsSuccess(response.data.data));
     } catch (error) {
-      console.error(error);
       dispatch(slice.actions.hasError(error));
+      cbFun(error);
     }
   };
 }
 
-// ----------------------------------------------------------------------
-
-export function getRecentPosts(title) {
+export function getAllUsers() {
   return async (dispatch) => {
     dispatch(slice.actions.startLoading());
     try {
-      const response = await axiosClient.get("/api/blog/posts/recent", {
-        params: { title },
-      });
-
-      dispatch(slice.actions.getRecentPostsSuccess(response.data.recentPosts));
+      const response = await axiosClient.get("admin/getall");
+      dispatch(slice.actions.getUsersSuccess(response.data.data));
     } catch (error) {
-      console.error(error);
       dispatch(slice.actions.hasError(error));
     }
   };

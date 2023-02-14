@@ -12,27 +12,26 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { useAuth } from "../../contexts/auth";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" to="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import { useDispatch } from "react-redux";
+import { signinUser } from "src/app/slices/user";
+import { useSnackbar } from "notistack";
 
 export default function SignIn() {
   const auth = useAuth();
+  const dispatch = useDispatch();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const cbFun = (res) => {
+    console.log(res);
+
+    if (res.status === 200) {
+      enqueueSnackbar("Login Successfull", { variant: "success" });
+
+      auth.login(res.data.data);
+    } else if (res.statusCode === 400) {
+      enqueueSnackbar(res.message, { variant: "error" });
+    }
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -40,7 +39,8 @@ export default function SignIn() {
       email: data.get("email"),
       password: data.get("password"),
     };
-    auth.login(payload.email);
+
+    dispatch(signinUser(payload, cbFun));
   };
 
   return (
@@ -123,7 +123,6 @@ export default function SignIn() {
           </Grid>
         </Box>
       </Box>
-      <Copyright sx={{ mt: 8, mb: 4 }} />
     </Container>
   );
 }

@@ -5,18 +5,21 @@ import { Button, IconButton } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllRequests } from "src/app/slices/user";
+import { getAllUsers } from "src/app/slices/user";
+import { Link } from "react-router-dom";
 
 export default function MessagesTable() {
   const dispatch = useDispatch();
-  const { requests } = useSelector((state) => state.user);
+  const { users } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(getAllRequests());
+    dispatch(getAllUsers());
   }, [dispatch]);
 
   const columns = [
     { field: "fullName", headerName: "Full name", width: 200 },
+    { field: "userName", headerName: "User name", width: 200 },
+
     { field: "email", headerName: "Email", width: 200 },
     {
       field: "createdAt",
@@ -48,10 +51,14 @@ export default function MessagesTable() {
   return (
     <Fragment>
       <Page
-        title={"Requests"}
-        action={<Button variant="contained">{"Create"}</Button>}
+        title={"Users"}
+        action={
+          <Button variant="contained" component={Link} to={"/app/create"}>
+            {"Create"}
+          </Button>
+        }
       >
-        <MDataTable rows={requests} columns={columns} />
+        <MDataTable rows={users} columns={columns} />
       </Page>
     </Fragment>
   );

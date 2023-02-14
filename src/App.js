@@ -4,6 +4,7 @@ import Router from "./routes";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import { SnackbarProvider } from "notistack";
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
@@ -32,12 +33,14 @@ function App() {
 
   return (
     <AuthProvider>
-      <ColorModeContext.Provider value={colorMode}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Router />
-        </ThemeProvider>
-      </ColorModeContext.Provider>
+      <SnackbarProvider>
+        <ColorModeContext.Provider value={colorMode}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <Router />
+          </ThemeProvider>
+        </ColorModeContext.Provider>
+      </SnackbarProvider>
     </AuthProvider>
   );
 }

@@ -9,6 +9,7 @@ import Signup from "../pages/auth/Signup";
 import MessagesTable from "../components/messages/MessagesTable";
 import ProjectTable from "src/components/projects/ProjectTable";
 import CreateProject from "src/components/projects/CreateProject";
+import CreateUser from "src/components/messages/CreateUser";
 
 export default function Router() {
   return useRoutes([
@@ -33,9 +34,15 @@ export default function Router() {
         </RequireAuth>
       ),
       children: [
-        { element: <Navigate to="/app" replace={true} /> },
-        { path: "", element: <MessagesTable /> },
-        { path: "app", element: <MessagesTable /> },
+        { path: "/", element: <MessagesTable /> },
+        {
+          path: "app",
+          children: [
+            { element: <Navigate to="/app" replace={true} /> },
+            { path: "", element: <MessagesTable /> },
+            { path: "create", element: <CreateUser /> },
+          ],
+        },
         { path: "profile", element: <Profile /> },
         { path: "requests", element: <MessagesTable /> },
         {

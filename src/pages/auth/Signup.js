@@ -11,33 +11,32 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" to="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import { useDispatch } from "react-redux";
+import { signupUser } from "src/app/slices/user";
+import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
 
 export default function SignUp() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { enqueueSnackbar } = useSnackbar();
+
+  const cbFun = (res) => {
+    if (res.status === 201) {
+      enqueueSnackbar("Sign Up successfull", { variant: "success" });
+      navigate("/auth/signin");
+    }
+  };
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    let payload = {
       email: data.get("email"),
       password: data.get("password"),
-    });
+      fullName: data.get("fullName"),
+      userName: data.get("userName"),
+    };
+    dispatch(signupUser(payload, cbFun));
   };
 
   return (
@@ -59,24 +58,24 @@ export default function SignUp() {
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 autoComplete="given-name"
-                name="firstName"
+                name="fullName"
                 required
                 fullWidth
-                id="firstName"
-                label="First Name"
+                id="fullName"
+                label="Full Name"
                 autoFocus
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 required
                 fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
+                id="userName"
+                label="User Name"
+                name="userName"
                 autoComplete="family-name"
               />
             </Grid>
@@ -133,7 +132,6 @@ export default function SignUp() {
           </Grid>
         </Box>
       </Box>
-      <Copyright sx={{ mt: 5 }} />
     </Container>
   );
 }
