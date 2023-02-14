@@ -14,7 +14,7 @@ import Page from "../Page";
 import ChartPage from "./ChartPage";
 
 const ChartWise = () => {
-  const [type, setType] = useState("");
+  const [type, setType] = useState("monthly");
   const dispatch = useDispatch();
   const handleChange = (event) => {
     setType(event.target.value);
