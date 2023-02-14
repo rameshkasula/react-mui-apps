@@ -24,7 +24,6 @@ const AssignTask = () => {
   const { enqueueSnackbar } = useSnackbar();
   const { userData, projects } = useSelector((state) => state.user);
   const [searchParams] = useSearchParams();
-  //console.log(searchParams.get("userId"));
   const userId = searchParams.get("userId");
   useEffect(() => {
     dispatch(getUserData(userId));
