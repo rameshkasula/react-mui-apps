@@ -39,7 +39,7 @@ export default function Router() {
         </RequireAuth>
       ),
       children: [
-        { path: "/", element: <MessagesTable /> },
+        { path: "", element: <Navigate to="/app" replace={true} /> },
         {
           path: "app",
           children: [
@@ -50,28 +50,15 @@ export default function Router() {
             { path: "update", element: <UpdateProject /> },
           ],
         },
-        { path: "profile", element: <Profile /> },
-        { path: "requests", element: <MessagesTable /> },
         { path: "reports", element: <ChartWise /> },
-
         {
           path: "tasks",
           children: [
             { element: <Navigate to="/tasks" replace /> },
             { path: "", element: <TaskTable /> },
             { path: "create", element: <CreateTask /> },
-            //  { path: ":tagId", element: <TagsCreate /> },
           ],
         },
-        // {
-        //   path: "projects",
-        //   children: [
-        //     { element: <Navigate to="/projects" replace /> },
-        //     { path: "", element: <ProjectTable /> },
-        //     { path: "create", element: <CreateProject /> },
-        //     //  { path: ":tagId", element: <TagsCreate /> },
-        //   ],
-        // },
       ],
     },
     {

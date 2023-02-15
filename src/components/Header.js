@@ -11,6 +11,7 @@ import { ColorModeContext } from "../App";
 import IconButton from "@mui/material/IconButton";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
+import { Button } from "@mui/material";
 
 export default function Header() {
   const theme = useTheme();
@@ -23,6 +24,11 @@ export default function Header() {
     },
     { name: "Reports", path: "/reports" },
   ];
+
+  const handleLogout = () => {
+    window.localStorage.removeItem("user");
+    window.location.href = "/auth/signin";
+  };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -62,6 +68,9 @@ export default function Header() {
               <Brightness4Icon />
             )}
           </IconButton>
+          <Button variant="contained" onClick={handleLogout}>
+            Logout
+          </Button>
         </Toolbar>
       </AppBar>
     </Box>

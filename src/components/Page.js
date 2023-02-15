@@ -21,6 +21,7 @@ export default function Page({ title, action, children }) {
         sx={{
           width: "70%",
           p: 2,
+          marginBottom: 5,
         }}
       >
         <CardHeader
@@ -28,7 +29,7 @@ export default function Page({ title, action, children }) {
           title={title}
           // subheader="September 14, 2016"
         />
-        <Divider />
+        {title && <Divider />}
         <CardContent>{isLoading ? <Loader /> : children}</CardContent>
       </Card>
     </Box>
