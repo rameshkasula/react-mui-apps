@@ -34,14 +34,14 @@ export default function Header() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Sidebar />
+          {/* <Sidebar /> */}
           <Typography
             variant="h6"
             component={Link}
             to={"/app"}
             sx={{ flexGrow: 1, textDecoration: "none", color: "#fff" }}
           >
-            News
+            Task Sheet
           </Typography>
           {pages.map((item) => (
             <Typography

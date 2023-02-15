@@ -37,7 +37,7 @@ const ChartWise = () => {
                 label="Type"
                 onChange={handleChange}
               >
-                <MenuItem value={"today"}>{"Today"}</MenuItem>
+                {/* <MenuItem value={"today"}>{"Today"}</MenuItem> */}
                 <MenuItem value={"weekly"}>{"Weekly"}</MenuItem>
                 <MenuItem value={"monthly"}>{"Monthly"}</MenuItem>
               </Select>
