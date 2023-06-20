@@ -9,7 +9,7 @@ export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 
 function App() {
   const prefersDarkMode = useMediaQuery("(prefers-color-scheme: dark)");
-
+console.log("tttt")
   const [mode, setMode] = React.useState(prefersDarkMode ? "dark" : "light");
   const colorMode = React.useMemo(
     () => ({
