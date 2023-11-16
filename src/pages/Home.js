@@ -1,20 +1,29 @@
-import { Container, Typography } from "@mui/material";
-import React, { Fragment, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getProducts } from "../app/slices/product";
-import Posts from "../components/posts";
+import React, { Fragment } from "react";
+import { Container } from "@mui/material";
+import moment from "moment";
+import { LocalizationProvider, DateRangePicker } from "@mui/x-date-pickers-pro";
+import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
 
 export default function Home() {
-  const dispatch = useDispatch();
-  const { isLoading, products } = useSelector((state) => state.product);
-
-  useEffect(() => {
-    dispatch(getProducts());
-  }, []);
+  const [value, setValue] = React.useState([
+    moment().startOf("month"),
+    moment().endOf("day"),
+  ]);
 
   return (
     <Fragment>
-      <Posts />
+      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+          <DateRangePicker
+            disableFuture={true}
+            format="DD/MM/YYYY"
+            startText="Start Date"
+            endText="End Date"
+            value={value}
+            onChange={(newValue) => setValue(newValue)}
+          />
+        </LocalizationProvider>
+      </Container>
     </Fragment>
   );
 }
