@@ -20,10 +20,12 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.response.use(
   (response) => response,
-  (error) =>
+  (error) => {
+    console.log("error", error);
     Promise.reject(
       (error.response && error.response.data) || "Something went wrong"
-    )
+    );
+  }
 );
 
 export default axiosClient;

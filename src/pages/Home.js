@@ -3,12 +3,24 @@ import { Container } from "@mui/material";
 import moment from "moment";
 import { LocalizationProvider, DateRangePicker } from "@mui/x-date-pickers-pro";
 import { AdapterMoment } from "@mui/x-date-pickers/AdapterMoment";
+import axiosClient from "../helpers/axiosClient";
 
 export default function Home() {
   const [value, setValue] = React.useState([
     moment().startOf("month"),
     moment().endOf("day"),
   ]);
+
+  React.useEffect(() => {
+    axiosClient
+      .get("/branch")
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
   return (
     <Fragment>

@@ -5,8 +5,8 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const navigate = useNavigate();
-  const findUser = JSON.parse(window.localStorage.getItem("user"));
-  const [user, setUser] = useState(findUser || true);
+  // const findUser = JSON.parse(window.localStorage.getItem("user"));
+  const [user, setUser] = useState(true);
 
   const login = async (data) => {
     setUser(true);
